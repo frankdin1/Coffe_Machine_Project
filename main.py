@@ -59,6 +59,7 @@ while True:
     elif choice == 4:
         total_payment = 0
         target_price = 0
+        total_earnings = 0
         coffee = input("What would you like? Espresso? Latte? Cappuccino?").lower()
         if coffee == 'espresso':
             target_price = MENU["espresso"]["cost"]
@@ -85,6 +86,7 @@ while True:
         total_payment += penny_amount
 
         if target_price <= total_payment:
+            total_earnings += total_payment
             print(f"Your change is {total_payment - target_price}")
         else:
             print("You didn't insert enough money.")
