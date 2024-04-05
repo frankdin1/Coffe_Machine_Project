@@ -81,15 +81,27 @@ while True:
         nickel_amount = 0.05 * nickel_count
         total_payment += nickel_amount
 
-        penny_count = int(input("How many pennie?: "))
+        penny_count = int(input("How many pennies?: "))
         penny_amount = 0.01 * penny_count
         total_payment += penny_amount
 
         if target_price <= total_payment:
             total_earnings += total_payment
             print(f"Your change is {total_payment - target_price}")
+            if coffee == 'espresso':
+                resources["water"] -= MENU["espresso"]["ingredients"]["water"]
+                resources["coffee"] -= MENU["espresso"]["ingredients"]["coffee"]
+            elif coffee == 'latte':
+                resources["water"] -= MENU["latte"]["ingredients"]["water"]
+                resources["coffee"] -= MENU["latte"]["ingredients"]["coffee"]
+                resources["milk"] -= MENU["latte"]["ingredients"]["milk"]
+            elif coffee == 'cappuccino':
+                resources["water"] -= MENU["cappuccino"]["ingredients"]["water"]
+                resources["coffee"] -= MENU["cappuccino"]["ingredients"]["coffee"]
+                resources["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
         else:
             print("You didn't insert enough money.")
+
 
     elif choice == 5:
         break
