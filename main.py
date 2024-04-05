@@ -43,7 +43,8 @@ resources = {
 # display the correct change and display a message with their coffee choice
 # d. if the sum of user coins is less than the target price, inform the user that
 # he needs more money
-
+# e. when a user chooses their coffee type, check whether there are enough resources to make
+# 1 cup of coffee
 while True:
     print("What would you like to do?")
     print("1 - Menu\n2 - Resources\n3 - Report\n4 - Coffee\n5 - Off")
@@ -63,10 +64,19 @@ while True:
         coffee = input("What would you like? Espresso? Latte? Cappuccino?").lower()
         if coffee == 'espresso':
             target_price = MENU["espresso"]["cost"]
+            if resources["water"] < MENU["espresso"]["ingredients"]["water"] or resources["coffee"] < MENU["espresso"]["ingredients"]["coffee"]:
+                print("Not enough to make an espresso.")
+                break
         elif coffee == 'latte':
             target_price = MENU["latte"]["cost"]
+            if resources["water"] < MENU["latte"]["ingredients"]["water"] or resources["coffee"] < MENU["latte"]["ingredients"]["coffee"] or resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
+                print("Not enough to make a latte.")
+                break
         elif coffee == 'cappuccino':
             target_price = MENU["cappuccino"]["cost"]
+            if resources["water"] < MENU["cappuccino"]["ingredients"]["water"] or resources["coffee"] < MENU["cappuccino"]["ingredients"]["coffee"] or resources["milk"] < MENU["cappuccino"]["ingredients"]["milk"]:
+                print("Not enough to make a cappuccino.")
+                break
 
         print("Please insert coins")
         quarter_count = int(input("How many quarters?: "))
