@@ -1,1 +1,1 @@
-# Coffe_Machine_Project
+# Coffee_Machine_Project
