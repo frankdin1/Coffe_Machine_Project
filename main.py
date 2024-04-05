@@ -36,14 +36,19 @@ resources = {
 # c. Option for user see menu.
 # d. Option to see machine resources left over.
 
-print("What would you like to do?")
-print("1 - Menu\n2 - Resources\n3 - Report\n4 - Coffee")
-choice = int(input())
-if choice == 1:
-    print(MENU)
-elif choice == 2:
-    print(resources)
-elif choice == 3:
-    print("Report")
-elif choice == 4:
-    print("Coffee")
+while True:
+    print("What would you like to do?")
+    print("1 - Menu\n2 - Resources\n3 - Report\n4 - Coffee\n5 - Off")
+    choice = int(input())
+    if choice == 1:
+        print("Espresso:\nIngredients:\n\tWater: 50mL\n\tCoffee: 18mL\nPrice: $1.50")
+        print("\nLatte:\nIngredients:\n\tWater: 200mL\n\tCoffee: 24mL\n\tMilk: 150mL\nPrice: $2.50")
+        print("\nCappuccino:\nIngredients:\n\tWater: 250mL\n\tCoffee: 24mL\n\tMilk: 100mL\nPrice: $2.50")
+    elif choice == 2:
+        print(resources)
+    elif choice == 3:
+        print("Report")
+    elif choice == 4:
+        print("Coffee")
+    elif choice == 5:
+        break
