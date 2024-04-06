@@ -78,7 +78,7 @@ def coffee_choice(coffee_type, price):
             resources["coffee"] < MENU[coffee_type]["ingredients"]["coffee"] or \
             resources["milk"] < MENU[coffee_type]["ingredients"]["milk"]:
         print(f"Not enough ingredients to make a(n) {coffee_type}.")
-        return
+        return False
     else:
         print(f"Price: ${MENU[coffee_type]["cost"]}")
         price = MENU[coffee_type]["cost"]
@@ -98,7 +98,9 @@ while True:
         print_machine_report()
     elif choice == 4:
         coffee = input("What would you like? Espresso? Latte? Cappuccino?").lower()
-        coffee_choice(coffee, target_price)
+        some_bool = coffee_choice(coffee, target_price)
+        if some_bool == False:
+            break
         # if coffee == 'espresso':
         #     if resources["water"] < MENU["espresso"]["ingredients"]["water"] or resources["coffee"] < \
         #             MENU["espresso"]["ingredients"]["coffee"]:
@@ -107,9 +109,9 @@ while True:
         #     else:
         #         print(f"Price: ${MENU["espresso"]["cost"]}")
         #         target_price = MENU["espresso"]["cost"]
-            # if resources["water"] < MENU["espresso"]["ingredients"]["water"] or resources["coffee"] < MENU["espresso"]["ingredients"]["coffee"]:
-            #     print("Not enough to make an espresso.")
-            #     break
+        # if resources["water"] < MENU["espresso"]["ingredients"]["water"] or resources["coffee"] < MENU["espresso"]["ingredients"]["coffee"]:
+        #     print("Not enough to make an espresso.")
+        #     break
         # elif coffee == 'latte':
         #     if resources["water"] < MENU["latte"]["ingredients"]["water"] or resources["coffee"] < \
         #             MENU["latte"]["ingredients"]["coffee"] or resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
