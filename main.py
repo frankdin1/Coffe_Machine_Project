@@ -45,10 +45,12 @@ resources = {
 # he needs more money
 # e. when a user chooses their coffee type, check whether there are enough resources to make
 # 1 cup of coffee
+
+total_payment = 0
+target_price = 0
+total_earnings = 0
+
 while True:
-    total_payment = 0
-    target_price = 0
-    total_earnings = 0
     print("What would you like to do?")
     print("1 - Menu\n2 - Resources\n3 - Report\n4 - Coffee\n5 - Off")
     choice = int(input())
