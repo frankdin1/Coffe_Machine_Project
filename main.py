@@ -82,6 +82,29 @@ def coffee_choice(coffee_type, price):
     else:
         print(f"Price: ${MENU[coffee_type]["cost"]}")
         price = MENU[coffee_type]["cost"]
+        return price
+
+
+def insert_coins():
+    payment = 0
+    print("Please insert coins")
+    quarter_count = int(input("How many quarters?: "))
+    quarter_amount = 0.25 * quarter_count
+    payment += quarter_amount
+
+    dime_count = int(input("How many dimes?: "))
+    dime_amount = 0.10 * dime_count
+    payment += dime_amount
+
+    nickel_count = int(input("How many nickels?: "))
+    nickel_amount = 0.05 * nickel_count
+    payment += nickel_amount
+
+    penny_count = int(input("How many pennies?: "))
+    penny_amount = 0.01 * penny_count
+    payment += penny_amount
+
+    return payment
 
 
 while True:
@@ -98,57 +121,26 @@ while True:
         print_machine_report()
     elif choice == 4:
         coffee = input("What would you like? Espresso? Latte? Cappuccino?").lower()
-        some_bool = coffee_choice(coffee, target_price)
-        if some_bool == False:
+        bool_or_price = coffee_choice(coffee, target_price)
+        if bool_or_price == False:
             break
-        # if coffee == 'espresso':
-        #     if resources["water"] < MENU["espresso"]["ingredients"]["water"] or resources["coffee"] < \
-        #             MENU["espresso"]["ingredients"]["coffee"]:
-        #         print("Not enough ingredients to make an espresso.")
-        #         break
-        #     else:
-        #         print(f"Price: ${MENU["espresso"]["cost"]}")
-        #         target_price = MENU["espresso"]["cost"]
-        # if resources["water"] < MENU["espresso"]["ingredients"]["water"] or resources["coffee"] < MENU["espresso"]["ingredients"]["coffee"]:
-        #     print("Not enough to make an espresso.")
-        #     break
-        # elif coffee == 'latte':
-        #     if resources["water"] < MENU["latte"]["ingredients"]["water"] or resources["coffee"] < \
-        #             MENU["latte"]["ingredients"]["coffee"] or resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
-        #         print("Not enough ingredients to make a latte.")
-        #         break
-        #     else:
-        #         print(f"Price: ${MENU["latte"]["cost"]}")
-        #         target_price = MENU["latte"]["cost"]
-        #     # if resources["water"] < MENU["latte"]["ingredients"]["water"] or resources["coffee"] < \
-        #     #         MENU["latte"]["ingredients"]["coffee"] or resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
-        #     #     print("Not enough to make a latte.")
-        #     #     break
-        # elif coffee == 'cappuccino':
-        #     print(f"Price: ${MENU["cappuccino"]["cost"]}")
-        #     target_price = MENU["cappuccino"]["cost"]
-        #     if resources["water"] < MENU["cappuccino"]["ingredients"]["water"] or resources["coffee"] < \
-        #             MENU["cappuccino"]["ingredients"]["coffee"] or resources["milk"] < \
-        #             MENU["cappuccino"]["ingredients"]["milk"]:
-        #         print("Not enough ingredients to make a cappuccino.")
-        #         break
-
-        print("Please insert coins")
-        quarter_count = int(input("How many quarters?: "))
-        quarter_amount = 0.25 * quarter_count
-        total_payment += quarter_amount
-
-        dime_count = int(input("How many dimes?: "))
-        dime_amount = 0.10 * dime_count
-        total_payment += dime_amount
-
-        nickel_count = int(input("How many nickels?: "))
-        nickel_amount = 0.05 * nickel_count
-        total_payment += nickel_amount
-
-        penny_count = int(input("How many pennies?: "))
-        penny_amount = 0.01 * penny_count
-        total_payment += penny_amount
+        total_payment = insert_coins()
+        # print("Please insert coins")
+        # quarter_count = int(input("How many quarters?: "))
+        # quarter_amount = 0.25 * quarter_count
+        # total_payment += quarter_amount
+        #
+        # dime_count = int(input("How many dimes?: "))
+        # dime_amount = 0.10 * dime_count
+        # total_payment += dime_amount
+        #
+        # nickel_count = int(input("How many nickels?: "))
+        # nickel_amount = 0.05 * nickel_count
+        # total_payment += nickel_amount
+        #
+        # penny_count = int(input("How many pennies?: "))
+        # penny_amount = 0.01 * penny_count
+        # total_payment += penny_amount
 
         if target_price <= total_payment:
             total_earnings += total_payment
