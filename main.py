@@ -31,6 +31,7 @@ resources = {
     "coffee": 100,
 }
 
+
 #TODO 1. Create different options for different requests that users might have
 # a. Option for user to see all their options.
 # b. Option for user to choose what type of coffee they would like.
@@ -49,10 +50,6 @@ resources = {
 # f. if a user chooses a coffee type but there are not enough resources to make the coffee, the loop should go back to
 # the original menu
 
-
-total_earnings = 0
-
-
 def print_menu():
     print("Espresso:\nIngredients:\n\tWater: 50mL\n\tCoffee: 18mL\nPrice: $1.50")
     print("\nLatte:\nIngredients:\n\tWater: 200mL\n\tCoffee: 24mL\n\tMilk: 150mL\nPrice: $2.50")
@@ -65,20 +62,16 @@ def show_available_resources():
     print(f"Milk: {resources["milk"]}mL")
 
 
-def print_machine_report():
-    print("-- Report --\n")
+def print_machine_report(earnings):
+    print("-- Report --")
     print(f"Water: {resources["water"]}mL")
     print(f"Coffee: {resources["coffee"]}mL")
     print(f"Milk: {resources["milk"]}mL")
-    print(f"Money: ${total_earnings}")
+    print(f"Money: ${earnings}")
 
 
 def coffee_choice(coffee_type):
     price = 0
-    #if coffee_type == 'espresso':
-    # if resources["water"] < MENU[coffee_type]["ingredients"]["water"] or \
-    #         resources["coffee"] < MENU[coffee_type]["ingredients"]["coffee"] or \
-    #         resources["milk"] < MENU[coffee_type]["ingredients"]["milk"]:
     if resources["water"] < MENU[coffee_type]["ingredients"]["water"]:
         print("Sorry, there's not enough water.")
     elif resources["coffee"] < MENU[coffee_type]["ingredients"]["coffee"]:
@@ -112,8 +105,8 @@ def insert_coins():
 
     return payment
 
+
 def make_coffee(coffee_type):
-    #if coffee == 'espresso':
     if resources["water"] - MENU[coffee_type]["ingredients"]["water"] >= 0:
         resources["water"] -= MENU["espresso"]["ingredients"]["water"]
     else:
@@ -128,41 +121,32 @@ def make_coffee(coffee_type):
         resources["milk"] = 0
 
 
-while True:
-    total_payment = 0
-    print("What would you like to do?")
-    print("1 - Menu\n2 - Resources\n3 - Report\n4 - Coffee\n5 - Off")
-    choice = int(input())
-    if choice == 1:
-        print_menu()
-    elif choice == 2:
-        show_available_resources()
-    elif choice == 3:
-        print_machine_report()
-    elif choice == 4:
-        coffee = input("What would you like? Espresso? Latte? Cappuccino?").lower()
-        target_price = coffee_choice(coffee)
-        if target_price == 0:
+def use_coffee_machine(earnings):
+    while True:
+        print("\nWhat would you like to do?")
+        print("1 - Menu\n2 - Resources\n3 - Report\n4 - Coffee\n5 - Off")
+        choice = int(input())
+        if choice == 1:
+            print_menu()
+        elif choice == 2:
+            show_available_resources()
+        elif choice == 3:
+            print_machine_report(earnings)
+        elif choice == 4:
+            coffee = input("What would you like? Espresso? Latte? Cappuccino?").lower()
+            target_price = coffee_choice(coffee)
+            if target_price == 0:
+                use_coffee_machine(earnings)
+            total_payment = insert_coins()
+            if target_price <= total_payment:
+                earnings += total_payment
+                print(f"Your change is ${total_payment - target_price}")
+                make_coffee(coffee)
+            else:
+                print("You didn't insert enough money. Money refunded.")
+        elif choice == 5:
             break
-        total_payment = insert_coins()
 
-        if target_price <= total_payment:
-            total_earnings += total_payment
-            print(f"Your change is {total_payment - target_price}")
-            make_coffee(coffee)
-            # if coffee == 'espresso':
-            #     resources["water"] -= MENU["espresso"]["ingredients"]["water"]
-            #     resources["coffee"] -= MENU["espresso"]["ingredients"]["coffee"]
-            # elif coffee == 'latte':
-            #     resources["water"] -= MENU["latte"]["ingredients"]["water"]
-            #     resources["coffee"] -= MENU["latte"]["ingredients"]["coffee"]
-            #     resources["milk"] -= MENU["latte"]["ingredients"]["milk"]
-            # elif coffee == 'cappuccino':
-            #     resources["water"] -= MENU["cappuccino"]["ingredients"]["water"]
-            #     resources["coffee"] -= MENU["cappuccino"]["ingredients"]["coffee"]
-            #     resources["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
-        else:
-            print("You didn't insert enough money. Money refunded.")
 
-    elif choice == 5:
-        break
+total_earnings = 0
+use_coffee_machine(total_earnings)
