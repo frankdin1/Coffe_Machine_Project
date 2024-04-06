@@ -50,15 +50,19 @@ resources = {
 
 
 total_earnings = 0
+
+
 def print_menu():
     print("Espresso:\nIngredients:\n\tWater: 50mL\n\tCoffee: 18mL\nPrice: $1.50")
     print("\nLatte:\nIngredients:\n\tWater: 200mL\n\tCoffee: 24mL\n\tMilk: 150mL\nPrice: $2.50")
     print("\nCappuccino:\nIngredients:\n\tWater: 250mL\n\tCoffee: 24mL\n\tMilk: 100mL\nPrice: $2.50")
 
+
 def show_available_resources():
     print(f"Water: {resources["water"]}mL")
     print(f"Coffee: {resources["coffee"]}mL")
     print(f"Milk: {resources["milk"]}mL")
+
 
 def print_machine_report():
     print("-- Report --\n")
@@ -66,6 +70,19 @@ def print_machine_report():
     print(f"Coffee: {resources["coffee"]}mL")
     print(f"Milk: {resources["milk"]}mL")
     print(f"Money: ${total_earnings}")
+
+
+def coffee_choice(coffee_type, price):
+    #if coffee_type == 'espresso':
+    if resources["water"] < MENU[coffee_type]["ingredients"]["water"] or \
+            resources["coffee"] < MENU[coffee_type]["ingredients"]["coffee"] or \
+            resources["milk"] < MENU[coffee_type]["ingredients"]["milk"]:
+        print(f"Not enough ingredients to make a(n) {coffee_type}.")
+        return
+    else:
+        print(f"Price: ${MENU[coffee_type]["cost"]}")
+        price = MENU[coffee_type]["cost"]
+
 
 while True:
     target_price = 0
@@ -81,37 +98,38 @@ while True:
         print_machine_report()
     elif choice == 4:
         coffee = input("What would you like? Espresso? Latte? Cappuccino?").lower()
-        if coffee == 'espresso':
-            if resources["water"] < MENU["espresso"]["ingredients"]["water"] or resources["coffee"] < \
-                    MENU["espresso"]["ingredients"]["coffee"]:
-                print("Not enough to make an espresso.")
-                break
-            else:
-                print(f"Price: ${MENU["espresso"]["cost"]}")
-                target_price = MENU["espresso"]["cost"]
+        coffee_choice(coffee, target_price)
+        # if coffee == 'espresso':
+        #     if resources["water"] < MENU["espresso"]["ingredients"]["water"] or resources["coffee"] < \
+        #             MENU["espresso"]["ingredients"]["coffee"]:
+        #         print("Not enough ingredients to make an espresso.")
+        #         break
+        #     else:
+        #         print(f"Price: ${MENU["espresso"]["cost"]}")
+        #         target_price = MENU["espresso"]["cost"]
             # if resources["water"] < MENU["espresso"]["ingredients"]["water"] or resources["coffee"] < MENU["espresso"]["ingredients"]["coffee"]:
             #     print("Not enough to make an espresso.")
             #     break
-        elif coffee == 'latte':
-            if resources["water"] < MENU["latte"]["ingredients"]["water"] or resources["coffee"] < \
-                    MENU["latte"]["ingredients"]["coffee"] or resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
-                print("Not enough to make a latte.")
-                break
-            else:
-                print(f"Price: ${MENU["latte"]["cost"]}")
-                target_price = MENU["latte"]["cost"]
-            # if resources["water"] < MENU["latte"]["ingredients"]["water"] or resources["coffee"] < \
-            #         MENU["latte"]["ingredients"]["coffee"] or resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
-            #     print("Not enough to make a latte.")
-            #     break
-        elif coffee == 'cappuccino':
-            print(f"Price: ${MENU["cappuccino"]["cost"]}")
-            target_price = MENU["cappuccino"]["cost"]
-            if resources["water"] < MENU["cappuccino"]["ingredients"]["water"] or resources["coffee"] < \
-                    MENU["cappuccino"]["ingredients"]["coffee"] or resources["milk"] < \
-                    MENU["cappuccino"]["ingredients"]["milk"]:
-                print("Not enough to make a cappuccino.")
-                break
+        # elif coffee == 'latte':
+        #     if resources["water"] < MENU["latte"]["ingredients"]["water"] or resources["coffee"] < \
+        #             MENU["latte"]["ingredients"]["coffee"] or resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
+        #         print("Not enough ingredients to make a latte.")
+        #         break
+        #     else:
+        #         print(f"Price: ${MENU["latte"]["cost"]}")
+        #         target_price = MENU["latte"]["cost"]
+        #     # if resources["water"] < MENU["latte"]["ingredients"]["water"] or resources["coffee"] < \
+        #     #         MENU["latte"]["ingredients"]["coffee"] or resources["milk"] < MENU["latte"]["ingredients"]["milk"]:
+        #     #     print("Not enough to make a latte.")
+        #     #     break
+        # elif coffee == 'cappuccino':
+        #     print(f"Price: ${MENU["cappuccino"]["cost"]}")
+        #     target_price = MENU["cappuccino"]["cost"]
+        #     if resources["water"] < MENU["cappuccino"]["ingredients"]["water"] or resources["coffee"] < \
+        #             MENU["cappuccino"]["ingredients"]["coffee"] or resources["milk"] < \
+        #             MENU["cappuccino"]["ingredients"]["milk"]:
+        #         print("Not enough ingredients to make a cappuccino.")
+        #         break
 
         print("Please insert coins")
         quarter_count = int(input("How many quarters?: "))
@@ -145,7 +163,7 @@ while True:
                 resources["coffee"] -= MENU["cappuccino"]["ingredients"]["coffee"]
                 resources["milk"] -= MENU["cappuccino"]["ingredients"]["milk"]
         else:
-            print("You didn't insert enough money.")
+            print("You didn't insert enough money. Money refunded.")
 
     elif choice == 5:
         break
